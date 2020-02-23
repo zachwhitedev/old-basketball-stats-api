@@ -12,4 +12,8 @@ After that, most of the necessary changes that are left boil down to:
 - don't forget to add any necessary environment variables when creating your environment, underneath the "Software" tab
 - don't forget to add a Load Balancer in the 'Capacity Tab' if necessary. Honestly don't do this until your app starts getting some serious traffic, because otherwise that LB is going to push your monthly bill from like $4 to $20 
 
-PS I just realized I can't use this API in production until I upgrade it to use HTTPS. To do so it looks like I'll need to add a Load Balancer just so I can add a listener that "terminates HTTPS" via an ACM certificate... I think I said all that right. Either way it is important to note that doing this will only work with 2 of AWS's load balancer types- Class Load Balancer and Application Load Balancer. I'll be going with classic I think.
+PS I just realized I can't use this API in production until I upgrade it to use HTTPS. To do so it looks like I'll need to add a Load Balancer just so I can add a listener to it.
+
+Update- added a Classic Load Balancer and bought a domain name with Route 53 AND added a subdomain onto that domain for the app to use as its HTTPS redirect. Whole thing was kind of a pain, but managed to do it in under 2 hours. This video was a great help: https://www.youtube.com/watch?v=JsqTSZo2qlQ
+
+Feel like my AWS binge is over for now because I'm a bit worn out. Looking forward to getting back to actually developing next time.
