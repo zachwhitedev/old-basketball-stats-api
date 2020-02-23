@@ -2,7 +2,9 @@ useful links:
 
 - https://www.youtube.com/watch?v=VO3tGUFQRKw
 
-Important to know: the trick to all this is to always choose "sample application" when setting up the EB application, and then going immediately into CloudPipeline and telling it which GitHub repo to point at your application. Then most of the necessary changes that are left boil down to:
+Important to know: the trick to all this is to always choose "sample application" when setting up the EB application, and then going immediately into CloudPipeline and telling it which GitHub repo to point at your application. Then the next time you push a change to master it will cause your repo files to replace the code of the sample app. Pretty slick. 
+
+After that, most of the necessary changes that are left boil down to:
 
 - always have that buildspec.yml file, since you tell AWS it's there when setting up your application
 - editing the 'deploy' stage of your CloudPipeline to use 'SourceArtifact' and not 'BuildArtifact'
