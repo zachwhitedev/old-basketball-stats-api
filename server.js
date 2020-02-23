@@ -20,6 +20,10 @@ app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/confirmuser', confirmEmail);
 
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+})
+
 app.get('/showusers', (req, res) => {
   const query = `SELECT * FROM users`;
   pool.query(query, (err, results, fields) => {
