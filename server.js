@@ -24,31 +24,31 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
 
-app.get('/showusers', (req, res) => {
-  const query = `SELECT * FROM users`;
-  pool.query(query, (err, results, fields) => {
-    if (err) {
-      const response = { data: null, message: err.message };
-      console.log(response);
-      res.send(response);
-    } else {
-      res.send(results);
-    }
-  });
-});
+// app.get('/showusers', (req, res) => {
+//   const query = `SELECT * FROM users`;
+//   pool.query(query, (err, results, fields) => {
+//     if (err) {
+//       const response = { data: null, message: err.message };
+//       console.log(response);
+//       res.send(response);
+//     } else {
+//       res.send(results);
+//     }
+//   });
+// });
 
-app.delete('/deleteusers', (req, res) => {
-  const query = `DELETE FROM users`;
-  pool.query(query, (err, results, fields) => {
-    if (err) {
-      const response = { data: null, message: err.message };
-      console.log(response);
-      res.send(response);
-    } else {
-      res.send('All users deleted. User table empty.');
-    }
-  });
-});
+// app.delete('/deleteusers', (req, res) => {
+//   const query = `DELETE FROM users`;
+//   pool.query(query, (err, results, fields) => {
+//     if (err) {
+//       const response = { data: null, message: err.message };
+//       console.log(response);
+//       res.send(response);
+//     } else {
+//       res.send('All users deleted. User table empty.');
+//     }
+//   });
+// });
 
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV === 'production') {
