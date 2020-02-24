@@ -25,9 +25,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/showusers', (req, res) => {
-  const query = `SELECT * FROM users`;
+  const text = 'SELECT * from users'
   try {
-    const data = await pool.query(query)
+    const data = await pool.query(text)
     res.send(data.rows[0])
   } catch (err) {
     res.send(err.stack)
