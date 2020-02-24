@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
             from: 'zach@basketballapp.com',
             subject: 'confirm your account with Basketball App',
             text: 'no text, using html instead',
-            html: `<h4 style="color: green";">whats up ${firstname}!</h4><p>Click <a href='http://localhost:3000/userconfirmation/ipvtw0vfmlvh5fk2s/${confirmString}'>here</a> to confirm your email.</p><p>- Zach White</p>`
+            html: `<h4 style="color: green";">whats up ${firstname}!</h4><p>Click <a href='https://basketball-stats.netlify.com//userconfirmation/ipvtw0vfmlvh5fk2s/${confirmString}'>here</a> to confirm your email.</p><p>- Zach White</p>`
           };
           sgMail.send(msg).then(console.log('email sent'));
         }
