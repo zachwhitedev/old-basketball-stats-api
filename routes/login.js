@@ -11,11 +11,13 @@ router.post('/', async (req, res) => {
   let email = userData.email;
   let password = userData.password;
 
-  const query =
-    'SELECT id, email, firstname, lastname, password, is_confirmed FROM users WHERE email = ?';
+    const query = {
+      text: 'SELECT id, email, firstname, lastname, password, is_confirmed FROM users WHERE email = $1',
+      values: [email]
+    }
 
   try {
-    const data = await pool.query(query, [email])
+    const data = await pool.query(query)
     if (data.rows[0].is_confirmed == 'false') {
       res.send({
         error: 'You must confirm your email account.'
