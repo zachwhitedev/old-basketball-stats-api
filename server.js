@@ -22,15 +22,15 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/showusers', async (req, res) => {
-  const text = 'SELECT id, email, firstname, lastname FROM users'
-  try {
-    const data = await pool.query(text)
-    res.send(data.rows)
-  } catch (err) {
-    res.send(err)
-  }
-});
+// app.get('/showusers', async (req, res) => {
+//   const text = 'SELECT id, email, firstname, lastname FROM users'
+//   try {
+//     const data = await pool.query(text)
+//     res.send(data.rows)
+//   } catch (err) {
+//     res.send(err)
+//   }
+// });
 
 const PORT = process.env.PORT || 5000;
 
