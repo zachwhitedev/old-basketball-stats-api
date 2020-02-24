@@ -14,9 +14,12 @@ router.post('/', (req, res) => {
   let firstname = userData.firstname;
   let lastname = userData.lastname;
 
-  const checkEmail = 'SELECT firstname FROM users WHERE email = ?';
-  pool.query(checkEmail, [email], (err, results, fields) => {
-    if (results[0]) {
+  const checkEmail = {
+    text: 'SELECT firstname FROM users WHERE email = $1',
+    values: [email],
+  }
+  pool.query(checkEmail, (err, results) => {
+    if (results.rows[0]) {
       console.log('User already exists.');
       res.send({
         code: 401,
@@ -41,19 +44,20 @@ router.post('/', (req, res) => {
               .toString(36)
               .slice(2);
           const confirmString = confirmStringPreSlice.slice(-15);
-          const query =
-            'INSERT INTO users(email, password, firstname, lastname, confirm_string) VALUES(?, ?, ?, ?, ?)';
+          const query = {
+            text: 'INSERT INTO users(email, password, firstname, lastname, confirm_string) VALUES($1, $2, $3, $4, $5)',
+            values: [email, hashedPassword, firstname, lastname, confirmString]
+          }
           pool.query(
             query,
-            [email, hashedPassword, firstname, lastname, confirmString],
-            (err, results, fields) => {
+            (err, results) => {
               if (err) {
                 const response = { data: null, message: err.message };
                 console.log(response);
                 res.send(response);
               } else {
                 const responseBody = {
-                  userId: results.insertId,
+                  userId: results.rows.insertId,
                   code: 200,
                   success: 'User registered sucessfully'
                 };
