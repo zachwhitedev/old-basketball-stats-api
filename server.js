@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-const pool = require('./db');
+const pool = require('./pgConnect');
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use('/confirmuser', confirmEmail);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
-})
+});
 
 // app.get('/showusers', (req, res) => {
 //   const query = `SELECT * FROM users`;
