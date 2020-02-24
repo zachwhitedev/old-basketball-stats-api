@@ -24,9 +24,13 @@ app.get('/', (req, res) => {
 
 app.get('/showusers', (req, res) => {
   const text = 'SELECT * from users'
-  pool.query(text)
-    .then(res => res.send(res))
-    .catch(err => res.send(err));
+  try {
+    const data = await pool.query(text)
+    res.send(data.rows[0])
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  } catch (err) {
+    res.send(err)
+  }
 });
 
 console.log(pool);
