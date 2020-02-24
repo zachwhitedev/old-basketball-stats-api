@@ -33,18 +33,18 @@ app.get('/showusers', async (req, res) => {
   }
 });
 
-const testy = async () => {
-  const text = 'SELECT * from users'
-    try {
-      const data = await pool.query(text)
-      console.log(data.rows[0])
-      // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-    } catch (err) {
-      console.log(err)
-    }
-}
+// const testy = async () => {
+//   const text = 'SELECT * from users'
+//     try {
+//       const data = await pool.query(text)
+//       console.log(data.rows[0])
+//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+//     } catch (err) {
+//       console.log(err)
+//     }
+// }
 
-testy();
+// testy();
 
 // app.delete('/deleteusers', (req, res) => {
 //   const query = `DELETE FROM users`;
