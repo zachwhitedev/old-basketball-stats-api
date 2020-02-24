@@ -16,8 +16,9 @@ router.post('/', (req, res) => {
 
   const checkEmail = {
     text: 'SELECT firstname FROM users WHERE email = $1',
-    values: [email],
-  }
+    values: [email]
+  };
+
   pool.query(checkEmail, (err, results) => {
     if (results.rows[0]) {
       console.log('User already exists.');
@@ -45,33 +46,31 @@ router.post('/', (req, res) => {
               .slice(2);
           const confirmString = confirmStringPreSlice.slice(-15);
           const query = {
-            text: 'INSERT INTO users(email, password, firstname, lastname, confirm_string) VALUES($1, $2, $3, $4, $5)',
+            text:
+              'INSERT INTO users(email, password, firstname, lastname, confirm_string) VALUES($1, $2, $3, $4, $5)',
             values: [email, hashedPassword, firstname, lastname, confirmString]
-          }
-          pool.query(
-            query,
-            (err, results) => {
-              if (err) {
-                const response = { data: null, message: err.message };
-                console.log(response);
-                res.send(response);
-              } else {
-                const responseBody = {
-                  userId: results.rows.insertId,
-                  code: 200,
-                  success: 'User registered sucessfully'
-                };
-                console.log(responseBody);
-                res.send(responseBody);
-              }
+          };
+          pool.query(query, (err, results) => {
+            if (err) {
+              const response = { data: null, message: err.message };
+              console.log(response);
+              res.send(response);
+            } else {
+              const responseBody = {
+                userId: results.rows.insertId,
+                code: 200,
+                success: 'User registered sucessfully'
+              };
+              console.log(responseBody);
+              res.send(responseBody);
             }
-          );
+          });
           const msg = {
             to: email,
             from: 'zach@basketballapp.com',
             subject: 'confirm your account with Basketball App',
             text: 'no text, using html instead',
-            html: `<h4 style="color: green";">whats up ${firstname}!</h4><p>Click <a href='https://basketball-stats.netlify.com//userconfirmation/ipvtw0vfmlvh5fk2s/${confirmString}'>here</a> to confirm your email.</p><p>- Zach White</p>`
+            html: `<h4 style="color: green";">whats up ${firstname}!</h4><p>Click <a href='https://basketball-stats.netlify.com/userconfirmation/ipvtw0vfmlvh5fk2s/${confirmString}'>here</a> to confirm your email.</p><p>- Zach White</p>`
           };
           sgMail.send(msg).then(console.log('email sent'));
         }
