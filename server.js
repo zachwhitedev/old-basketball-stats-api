@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-const pool = require('./mysqlConnect');
+const pool = require('./pgConnect');
 
 const app = express();
 
