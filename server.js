@@ -26,15 +26,12 @@ app.get('/', (req, res) => {
 
 app.get('/showusers', (req, res) => {
   const query = `SELECT * FROM users`;
-  pool.query(query, (err, results, fields) => {
-    if (err) {
-      const response = { data: null, message: err.message };
-      console.log(response);
-      res.send(response);
-    } else {
-      res.send(results);
-    }
-  });
+  try {
+    const data = await pool.query(query)
+    res.send(data.rows[0])
+  } catch (err) {
+    res.send(err.stack)
+  }
 });
 
 // app.delete('/deleteusers', (req, res) => {
