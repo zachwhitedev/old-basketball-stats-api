@@ -17,3 +17,5 @@ PS I just realized I can't use this API in production until I upgrade it to use 
 Update- added a Classic Load Balancer and bought a domain name with Route 53 AND added a subdomain onto that domain for the app to use as its HTTPS redirect. Whole thing was kind of a pain, but managed to do it in under 2 hours. This video was a great help: https://www.youtube.com/watch?v=JsqTSZo2qlQ
 
 Feel like my AWS binge is over for now because I'm a bit worn out. Looking forward to getting back to actually developing next time.
+
+Update- turns out my AWS binge wasn't over. Just made the switch from MySQL installed on a Digital Ocean droplet to AWS RDS PostgresQL. I'm really liking the fact that RDS is managed, has a generous free tier, and I'm also really liking pgadmin4 as a GUI for managing it all. 
