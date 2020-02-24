@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/showusers', (req, res) => {
+app.get('/showusers', async (req, res) => {
   const text = 'SELECT * from users'
   try {
     const data = await pool.query(text)
@@ -33,7 +33,18 @@ app.get('/showusers', (req, res) => {
   }
 });
 
-console.log(pool);
+const testy = async () => {
+  const text = 'SELECT * from users'
+    try {
+      const data = await pool.query(text)
+      console.log(data.rows[0])
+      // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+    } catch (err) {
+      console.log(err)
+    }
+}
+
+testy();
 
 // app.delete('/deleteusers', (req, res) => {
 //   const query = `DELETE FROM users`;
