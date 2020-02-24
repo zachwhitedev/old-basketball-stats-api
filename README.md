@@ -18,4 +18,4 @@ Update- added a Classic Load Balancer and bought a domain name with Route 53 AND
 
 Feel like my AWS binge is over for now because I'm a bit worn out. Looking forward to getting back to actually developing next time.
 
-Update- turns out my AWS binge wasn't over. Just made the switch from MySQL installed on a Digital Ocean droplet to AWS RDS PostgresQL. I'm really liking the fact that RDS is managed, has a generous free tier, and I'm also really liking pgadmin4 as a GUI for managing it all. 
+Update- turns out my AWS binge wasn't over. Just made the switch from MySQL installed on a Digital Ocean droplet to AWS RDS PostgreSQL. I'm really liking the fact that RDS is managed, has a generous free tier, and I'm also really liking pgadmin4 as a GUI for managing it all. 
