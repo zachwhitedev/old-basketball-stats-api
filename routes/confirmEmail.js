@@ -1,29 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../pgConnect');
+const pool = require('../db');
 
 router.post('/', (req, res) => {
-  console.log('route was hit');
-  console.log(req.body.confirmstring);
   const confirmString = req.body.confirmstring;
-  const query =
-    'SELECT id, firstname, lastname, email FROM users WHERE confirm_string = ?';
-  pool.query(query, [confirmString], (err, results, fields) => {
-    if (results[0]) {
+  const query = {
+    text: 'SELECT id, firstname, lastname, email FROM users WHERE confirm_string = $1',
+    values: [confirmString]
+  }
+  pool.query(query, (err, results) => {
+    if (results.rows[0]) {
       const nowConfirmed = 'true';
-      const userId = results[0].id;
-      const userEmail = results[0].email;
-      const confirmUser =
-        'UPDATE users SET is_confirmed = ? WHERE id = ? AND email = ?';
+      const userId = results.rows[0].id;
+      const userEmail = results.rows[0].email;
+      const confirmUser = {
+          text: 'UPDATE users SET is_confirmed = $1 WHERE id = $2 AND email = $3',
+          values: [nowConfirmed, userId, userEmail]
+      }
       pool.query(
         confirmUser,
-        [nowConfirmed, userId, userEmail],
-        (err, results, fields) => {
-          if (results[0]) {
+        (err, results) => {
+          if (results.rows[0]) {
             res.send({
-              success: `User ${results[0].firstname +
+              success: `User ${results.rows[0].firstname +
                 ' ' +
-                results[0].lastname} has confirmed their email.`
+                results.rows[0].lastname} has confirmed their email.`
             });
           } else if (err) {
             res.send({
@@ -33,9 +34,9 @@ router.post('/', (req, res) => {
         }
       );
       res.send({
-        success: `User ${results[0].firstname +
+        success: `User ${results.rows[0].firstname +
           ' ' +
-          results[0].lastname} has confirmed their email.`
+          results.rows[0].lastname} has confirmed their email.`
       });
     } else if (err) {
       res.send({
