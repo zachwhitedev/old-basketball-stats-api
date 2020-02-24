@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
       res.send({
         error: 'You must confirm your email account.'
       });
-    } else if(data.rows[0]){
+    } else if(data.rows[0].is_confirmed == 'true'){
       if (bcrypt.compareSync(password, data.rows[0].password)) {
         const payload = {
           userid: data.rows[0].id,
@@ -42,7 +42,9 @@ router.post('/', async (req, res) => {
       }
     }
   } catch(err){
-    console.log(err)
+    res.send({
+      error: 'User does not exist.'
+    })
   }
 })
 
