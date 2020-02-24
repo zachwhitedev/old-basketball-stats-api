@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/showusers', async (req, res) => {
+app.get('/showusers', (req, res) => {
   const text = 'SELECT * from users'
   pool.query(text)
-  .then(res => res.send((res.rows[0])))
-  .catch(e => res.send((e.stack)))
+    .then(res => res.send(res))
+    .catch(err => res.send(err));
 });
 
 // app.delete('/deleteusers', (req, res) => {

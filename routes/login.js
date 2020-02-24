@@ -16,17 +16,17 @@ router.post('/', async (req, res) => {
 
   try {
     const data = await pool.query(query, [email])
-    if (res.data[0].is_confirmed == 'false') {
+    if (data.rows[0].is_confirmed == 'false') {
       res.send({
         error: 'You must confirm your email account.'
       });
-    } else if(res.data[0]){
-      if (bcrypt.compareSync(password, res.data[0].password)) {
+    } else if(data.rows[0]){
+      if (bcrypt.compareSync(password, data.rows[0].password)) {
         const payload = {
-          userid: res.data[0].id,
-          useremail: res.data[0].email,
-          firstname: res.data[0].firstname,
-          lastname: res.data[0].lastname
+          userid: data.rows[0].id,
+          useremail: data.rows[0].email,
+          firstname: data.rows[0].firstname,
+          lastname: data.rows[0].lastname
         };
         console.log(payload);
         let token = jwt.sign(payload, process.env.JWT_SECRET, {
