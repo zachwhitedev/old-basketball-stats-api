@@ -11,9 +11,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://basketball-stats.netlify.com'); // update to match the domain you will make the request from
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.header(
+    'Access-Control-Allow-Origin',
+    'https://basketball-stats.netlify.com'
+  ); 
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  ); // Request methods you wish to allow
+  res.header(
+    // Request headers you wish to allow
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   );
@@ -33,18 +40,18 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-// app.get('/showusers', (req, res) => {
-//   const query = `SELECT * FROM users`;
-//   pool.query(query, (err, results, fields) => {
-//     if (err) {
-//       const response = { data: null, message: err.message };
-//       console.log(response);
-//       res.send(response);
-//     } else {
-//       res.send(results);
-//     }
-//   });
-// });
+app.get('/showusers', (req, res) => {
+  const query = `SELECT * FROM users`;
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message };
+      console.log(response);
+      res.send(response);
+    } else {
+      res.send(results);
+    }
+  });
+});
 
 // app.delete('/deleteusers', (req, res) => {
 //   const query = `DELETE FROM users`;
