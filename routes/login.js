@@ -13,18 +13,20 @@ router.post('/', (req, res) => {
 
   const query =
     'SELECT id, email, firstname, lastname, password, is_confirmed FROM users WHERE email = ?';
-  pool.query(query, [email], (err, results, fields) => {
-    if (results[0]) {
-      if (results[0].is_confirmed == 'false') {
-        res.send({
-          error: 'You must confirm your email account.'
-        });
-      } else if (bcrypt.compareSync(password, results[0].password)) {
+
+  try {
+    const res = await pool.query(query, [email])
+    if (res.rows[0].is_confirmed == 'false') {
+      res.send({
+        error: 'You must confirm your email account.'
+      });
+    } else if(res.rows[0]){
+      if (bcrypt.compareSync(password, res.rows[0].password)) {
         const payload = {
-          userid: results[0].id,
-          useremail: results[0].email,
-          firstname: results[0].firstname,
-          lastname: results[0].lastname
+          userid: res.rows[0].id,
+          useremail: res.rows[0].email,
+          firstname: res.rows[0].firstname,
+          lastname: res.rows[0].lastname
         };
         console.log(payload);
         let token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -36,14 +38,10 @@ router.post('/', (req, res) => {
           error: 'Email or password verification failed.'
         });
       }
-    } else if (err) {
-      res.send({
-        error: err
-      });
-    } else {
-      console.log('Something is messed up with login route.');
     }
-  });
-});
+  } catch(err){
+    console.log(err)
+  }
+})
 
 module.exports = router;
