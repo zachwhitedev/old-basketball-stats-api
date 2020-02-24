@@ -3,13 +3,22 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-const pool = require('./pgConnect');
+const pool = require('./mysqlConnect');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://basketball-stats.netlify.com'); // update to match the domain you will make the request from
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
 
 const testRoutes = require('./routes/test');
 const registerRoute = require('./routes/register');
