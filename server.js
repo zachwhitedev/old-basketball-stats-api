@@ -11,11 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const testRoutes = require('./routes/test');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const confirmEmail = require('./routes/confirmEmail');
-app.use('/test', testRoutes);
 app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/confirmuser', confirmEmail);
@@ -30,6 +28,8 @@ app.get('/showusers', (req, res) => {
     .then(res => res.send(res))
     .catch(err => res.send(err));
 });
+
+console.log(pool);
 
 // app.delete('/deleteusers', (req, res) => {
 //   const query = `DELETE FROM users`;
