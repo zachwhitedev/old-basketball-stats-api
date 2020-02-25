@@ -13,7 +13,7 @@ module.exports = {
   }),
   login: rateLimit({
     windowMs: 5 * 60 * 1000,
-    max: 20,
+    max: 8,
     statusCode: 200,
     message: {
       status: 429,
@@ -21,12 +21,12 @@ module.exports = {
     }
   }),
   register: rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 20,
+    windowMs: 5 * 60 * 1000,
+    max: 8,
     statusCode: 200,
     message: {
       status: 429,
-      error: 'You are doing that too much. Please try again in 20 minutes.'
+      error: 'You are doing that too much. Please try again in 10 minutes.'
     }
   }),
   test: rateLimit({
@@ -35,7 +35,7 @@ module.exports = {
     statusCode: 200,
     message: {
       status: 429,
-      error: 'You are making too many requests, Peter. Wait 3 minutes before trying again, y\'peesa sheh!'
+      error: 'You are making too many requests. The rate limiter is working!'
     }
   })
 };

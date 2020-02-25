@@ -17,7 +17,7 @@ const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const confirmEmail = require('./routes/confirmEmail');
 app.use('/register', ratelimits.register, registerRoute);
-app.use('/login', ratelimits.test, loginRoute);
+app.use('/login', ratelimits.login, loginRoute);
 app.use('/confirmuser', confirmEmail);
 
 app.get('/', (req, res) => {
