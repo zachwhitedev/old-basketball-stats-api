@@ -32,9 +32,6 @@ module.exports = {
     message: {
       status: 429,
       error: 'You are making too many requests. The rate limit is working!'
-    },
-    handler: function(req, res){
-        res.send(message);
     }
   })
 };
