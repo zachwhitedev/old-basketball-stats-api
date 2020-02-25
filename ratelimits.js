@@ -15,7 +15,7 @@ module.exports = {
     max: 20,
     message: {
       error:
-        'You are making too many login attempts. Please try again in 10 minutes.'
+        'You are doing that too much. Please try again in 10 minutes.'
     }
   }),
   register: rateLimit({
@@ -23,7 +23,7 @@ module.exports = {
     max: 20,
     message: {
       error:
-        'You are making too many register requests. Please try again in 20 minutes.'
+        'You are doing that too much. Please try again in 20 minutes.'
     }
   }),
   test: rateLimit({
