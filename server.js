@@ -2,14 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 const pool = require('./db');
 
 const app = express();
 
+const limiter = rateLimit({
+  windowMs: 20 * 60 * 1000, // 20 minutes
+  max: 500, // max requests allowed per windowMS
+  message: 'You are making too many requests. Please wait 30 minutes and try again.'
+})
+
+app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+
 
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
