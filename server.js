@@ -25,12 +25,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/showusers', ratelimits.test, async (req, res) => {
-  const text = 'SELECT id, email, firstname, lastname FROM users'
+  const text = 'SELECT id, email, firstname, lastname FROM users';
   try {
-    const data = await pool.query(text)
-    res.send(data.rows)
+    const data = await pool.query(text);
+    res.send(data.rows);
   } catch (err) {
-    res.send(err)
+    res.send(err);
   }
 });
 
