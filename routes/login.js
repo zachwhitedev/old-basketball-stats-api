@@ -34,7 +34,9 @@ router.post('/', async (req, res) => {
         let token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: 30 * 60
         });
-        res.send(token);
+        res.send({
+          token: token
+        });
       } else {
         res.send({
           error: 'Email or password verification failed.'
