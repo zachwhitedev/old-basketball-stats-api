@@ -5,6 +5,7 @@ const path = require('path');
 const ratelimits = require('./ratelimits');
 require('dotenv').config();
 const pool = require('./db');
+const admin = require('./adminQueries');
 
 const app = express();
 
@@ -25,10 +26,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/showusers', ratelimits.test, async (req, res) => {
-  const text = 'SELECT id, email, firstname, lastname FROM users';
   try {
-    const data = await pool.query(text);
+    const data = await admin.getUsers();
     res.send(data.rows);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.get('/deleteusers', ratelimits.test, async (req, res) => {
+  try {
+    const data = await admin.deleteUsers();
+    res.send('Users deleted. User table empty.');
   } catch (err) {
     res.send(err);
   }
