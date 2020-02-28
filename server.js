@@ -34,9 +34,10 @@ app.get('/showusers', ratelimits.test, async (req, res) => {
   }
 });
 
-app.get('/deleteusers', ratelimits.test, async (req, res) => {
+app.delete('/deleteusers', ratelimits.test, async (req, res) => {
   try {
     const data = await admin.deleteUsers();
+    console.log(data);
     res.send('Users deleted. User table empty.');
   } catch (err) {
     res.send(err);
