@@ -25,6 +25,28 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.post('/rolandfinance', (req, res) => {
+  const query = {
+    text:
+      'INSERT INTO subscribers(email) VALUES($1)',
+    values: [email]
+  };
+  pool.query(query, (err, results) => {
+    if (err) {
+      const response = { data: null, message: err.message };
+      console.log(response);
+      res.send(response);
+    } else {
+      const responseBody = {
+        userId: results.rows.insertId,
+        code: 200,
+        success: 'User subscribed sucessfully'
+      };
+      res.send(responseBody);
+    }
+  });
+})
+
 app.get('/showusers', ratelimits.test, async (req, res) => {
   try {
     const data = await admin.getUsers();
