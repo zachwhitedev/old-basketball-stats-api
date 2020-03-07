@@ -47,6 +47,28 @@ app.post('/rolandfinance', (req, res) => {
     }
   });
 })
+app.post('/zwsubs', (req, res) => {
+  const userEmail = req.body.email;
+  const query = {
+    text:
+      'INSERT INTO zwsubs(email) VALUES($1)',
+    values: [userEmail]
+  };
+  pool.query(query, (err, results) => {
+    if (err) {
+      const response = { data: null, message: err.message };
+      console.log(response);
+      res.send(response);
+    } else {
+      const responseBody = {
+        userId: results.rows.insertId,
+        code: 200,
+        success: 'User subscribed sucessfully'
+      };
+      res.send(responseBody);
+    }
+  });
+})
 
 app.get('/showusers', ratelimits.test, async (req, res) => {
   try {
