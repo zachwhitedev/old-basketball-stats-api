@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.post('/rolandfinance', (req, res) => {
   const query = {
     text:
-      'INSERT INTO subscribers(email) VALUES($1)',
+      'INSERT INTO rfbsubs(email) VALUES($1)',
     values: [email]
   };
   pool.query(query, (err, results) => {
