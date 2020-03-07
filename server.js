@@ -26,10 +26,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/rolandfinance', (req, res) => {
+  const userEmail = req.body.email;
   const query = {
     text:
       'INSERT INTO rfbsubs(email) VALUES($1)',
-    values: [email]
+    values: [userEmail]
   };
   pool.query(query, (err, results) => {
     if (err) {
